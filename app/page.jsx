@@ -65,7 +65,8 @@ export default function Home() {
 
   // Process the country name from the input
   const filterSubmit = (data) => {
-    const enteredName = data.country_name;
+    const enteredName =
+      data.country_name.charAt(0).toUpperCase() + data.country_name.slice(1);
 
     const choosedCountry = allCountries.find(
       (country) => country.name === enteredName

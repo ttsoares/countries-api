@@ -13,7 +13,7 @@ const Card = ({ country, clickCountry }) => {
   return (
     <div className="w-full" onClick={() => clickCountry(country.id)}>
       <div className={`${theme}w-64 h-72 md:w-56 md:h-96 bg-elmts text-text`}>
-        <div className="w-fill h-1/2 relative">
+        <div className="w-fill h-1/2 relative hover:cursor-pointer">
           <Image src={country.flag} alt="flag" fill object-fit="cover" />
         </div>
 

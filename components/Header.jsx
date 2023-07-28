@@ -23,7 +23,7 @@ const Header = () => {
           width={10}
           height={10}
           alt="light/dark"
-          className={`${theme} text-text w-3 h-3 md:w-5 md:h-5`}
+          className={`${theme} text-text w-3 h-3 md:w-5 md:h-5 hover:cursor-pointer`}
           onClick={toggleTheme}
         />
         <h2>{theme === "dark" ? "Dark " : "Light "} Mode</h2>

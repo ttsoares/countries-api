@@ -8,13 +8,13 @@ import Image from "next/image";
 import { useAtom } from "jotai";
 import { aCountry } from "../page";
 
-import data from "../../data.json";
+import allCountries from "../../data.json";
 
 import Header from "../../components/Header";
 
 //------------------------------
 const Page = () => {
-  const [oneCountry] = useAtom(aCountry);
+  const [oneCountry, setOneCountry] = useAtom(aCountry);
   const { theme, setTheme } = useTheme();
 
   const pop_format = String(oneCountry.population).replace(
@@ -26,19 +26,18 @@ const Page = () => {
   if (oneCountry.borders !== undefined) {
     bordersArray = oneCountry.borders.map(
       (border_code) =>
-        data.find((country) => country.alpha3Code === border_code).name
+        allCountries.find((country) => country.alpha3Code === border_code).name
     );
   }
 
   const router = useRouter();
-
   function back() {
     router.push("/");
   }
 
-  function toggleTheme() {
-    if (theme === "dark") setTheme("light");
-    else setTheme("dark");
+  function neighboard(country) {
+    const newContry = allCountries.find((elm) => elm.name === country);
+    setOneCountry(newContry);
   }
 
   return (
@@ -132,21 +131,29 @@ const Page = () => {
           {/* Borders */}
           <div className="mt-10 w-full">
             {bordersArray !== undefined ? (
-              <div className="flex flex-row w-full items-center">
-                <p className={`${theme} text-text font-bold text-xs w-44 mr-3`}>
-                  Border Countries:
-                </p>
-                <div className="flex w-full flex-row">
+              <div className="flex flex-row  w-full items-center">
+                <div className="flex flex-col">
+                  <p
+                    className={`${theme} text-text font-bold text-xs w-44 mr-3`}
+                  >
+                    Border Countries:
+                  </p>
+                  <p className="text-xs text-gray-500">
+                    click the country name...
+                  </p>
+                </div>
+                <div className="flex w-full flex-row bg-bckg">
                   <div
-                    className={`${theme} bg-elmts text-xs flex flex-wrap text-text space-y-1 items-center w-full`}
+                    className={`${theme} grid grid-cols-4 bg-bckg gap-1 text-xs text-text w-full content-center hover:cursor-pointer`}
                   >
                     {bordersArray.map((elm, index) => (
-                      <>
-                        <div className="px-4 mx-2 flex" key={index}>
-                          {elm}
-                        </div>
-                        <p className="bg-bckg">&nbsp;&nbsp;</p>
-                      </>
+                      <div
+                        className="p-1 bg-elmts text-center"
+                        key={index}
+                        onClick={() => neighboard(elm)}
+                      >
+                        {elm}
+                      </div>
                     ))}
                   </div>
                 </div>
