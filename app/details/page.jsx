@@ -47,12 +47,12 @@ const Page = () => {
       <Header />
 
       {/* Fancy button */}
-      <div class="relative inline-flex w-32 group ml-10 mt-16 mb-5">
+      <div class="relative inline-flex w-32 group ml-10 mt-5 md:mt-16 mb-5">
         <div
           class={`${theme} absolute transitiona-all duration-1000 opacity-80 -inset-px bg-gradient-to-r from-elmts via-input to-elmts rounded-xl blur-md group-hover:opacity-100 group-hover:-inset-1 group-hover:duration-200 animate-tilt`}
         ></div>
         <button
-          class={`${theme} relative inline-flex items-center justify-center px-10 py-3 text-text transition-all duration-200 bg-elmts font-pj rounded-xl focus:outline-none focus:ring-3 focus:ring-offset-4 focus:ring-bckg`}
+          class={`${theme} relative inline-flex items-center justify-center px-6 py-2 md:px-10 md:py-3 text-text transition-all duration-200 bg-elmts font-pj rounded-xl focus:outline-none focus:ring-3 focus:ring-offset-4 focus:ring-bckg`}
           onClick={back}
         >
           <svg
@@ -73,17 +73,17 @@ const Page = () => {
         </button>
       </div>
 
-      <div className="flex w-full p-10">
+      <div className="flex flex-col md:flex-row w-full p-10">
         {/* Flag */}
-        <div className="relative w-[35%]  h-72 mr-20">
+        <div className="relative w-full md:w-[35%]  h-60 md:h-72 mr-20 shadow-2xl">
           <Image src={oneCountry.flag} alt="flag" fill object-fit="cover" />
         </div>
         {/* Details */}
-        <div className="flex flex-col w-1/2">
+        <div className="flex flex-col w-full md:w-1/2">
           {/* country data */}
-          <div className="flex">
+          <div className=" flex flex-col md:flex">
             <div className="flex flex-col">
-              <h1 className="mb-4 mt-4 text-2xl">{oneCountry.name}</h1>
+              <h1 className="mb-4 mt-4 md:-mt-3 text-2xl">{oneCountry.name}</h1>
               <h2>
                 Native Name: <span>{oneCountry.nativeName}</span>
               </h2>
@@ -100,8 +100,8 @@ const Page = () => {
                 Capital: <span>{oneCountry.capital}</span>
               </h2>
             </div>
-            <div className="flex flex-col mt-16 ml-12">
-              <h2>
+            <div className="flex flex-col mt-5 ">
+              <h2 className="flex w-full">
                 Top Level Domain: <span>{oneCountry.topLevelDomain}</span>
               </h2>
               <h2 className="flex">
@@ -128,13 +128,13 @@ const Page = () => {
               </h2>
             </div>
           </div>
-          {/* Borders */}
-          <div className="mt-10 w-full">
+          {/* Borders countries*/}
+          <div className="md:mt-5 w-full">
             {bordersArray !== undefined ? (
-              <div className="flex flex-row  w-full items-center">
-                <div className="flex flex-col">
+              <div className="flex flex-col md:flex-row  w-full md:items-center">
+                <div className="flex flex-col mb-3">
                   <p
-                    className={`${theme} text-text font-bold text-xs w-44 mr-3`}
+                    className={`${theme} mt-5 md:mt-0 text-text font-bold text-xs w-full md:w-44 mr-3`}
                   >
                     Border Countries:
                   </p>
@@ -144,11 +144,11 @@ const Page = () => {
                 </div>
                 <div className="flex w-full flex-row bg-bckg">
                   <div
-                    className={`${theme} grid grid-cols-4 bg-bckg gap-1 text-xs text-text w-full content-center hover:cursor-pointer`}
+                    className={`${theme} grid grid-cols-3 md:grid-cols-4 bg-bckg gap-1 text-xs text-text w-full content-center hover:cursor-pointer`}
                   >
                     {bordersArray.map((elm, index) => (
                       <div
-                        className="p-1 bg-elmts text-center"
+                        className="p-1 bg-elmts text-center shadow-[0px_10px_40px_4px_rgba(0,0,0,0.56)]"
                         key={index}
                         onClick={() => neighboard(elm)}
                       >

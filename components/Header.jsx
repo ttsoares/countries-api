@@ -14,7 +14,7 @@ const Header = () => {
 
   return (
     <div
-      className={`${theme} flex w-full h-20 justify-between items-center bg-elmts px-3 md:px-10`}
+      className={`${theme} flex w-full h-20 justify-between items-center bg-elmts px-3 md:px-10 shadow-xl`}
     >
       <h1 className={`${theme} text-text font-bold`}>Where in the world? </h1>
       <div className={`${theme} text-text flex items-center space-x-3`}>

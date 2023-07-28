@@ -13,10 +13,6 @@ import Countries from "../data.json";
 
 const allCountries = Countries.map((elm, index) => ({ ...elm, id: index }));
 
-import search from "../public/images/search.svg";
-
-import Image from "next/image";
-
 import Card from "../components/Card";
 import Header from "../components/Header";
 
@@ -117,19 +113,28 @@ export default function Home() {
 
       <div className="flex flex-col md:flex-row justify-between py-5 w-full md:w-[95%]">
         {/* Search */}
-        <div className="flex items-center justify-between rounded-md w-full  px-6">
-          <div className="flex p-4 w-96 bg-elmts">
-            <Image
-              src={search}
-              width={10}
-              height={10}
-              alt="search"
-              className="w-4 h-4 mr-3"
-            />
+        <div className="flex-col md:flex-row items-center justify-between rounded-md w-full  px-6">
+          <div
+            className={`${theme} items-center text-text flex p-4 w-[325px] md:w-96 bg-elmts shadow-lg`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-4 h-4 mr-2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+              />
+            </svg>
             <form onSubmit={handleSubmit(filterSubmit)} className="flex">
               <input
                 {...register("country_name")}
-                className={`${theme} bg-elmts`}
+                className={`${theme} bg-elmts w-full md:w-80 shadow-lg`}
                 type="text"
                 placeholder="Search a country..."
               />
@@ -137,7 +142,7 @@ export default function Home() {
           </div>
           <form>
             <Select
-              className="w-60 ml-10 bg-elmts"
+              className="w-2/3 md:w-60 mt-6 md:mt-0 md:ml-10 bg-elmts shadow-lg"
               onChange={ChangeSelect}
               value={selectInput}
               defaultInputValue=""
@@ -151,7 +156,7 @@ export default function Home() {
 
       {/* Cards grid */}
       <div
-        className={`${theme} bg-bckg grid grid-cols-1 items-center justify-center md:grid-cols-4 gap-y-14 gap-x-16`}
+        className={`${theme} bg-bckg grid grid-cols-1 items-center justify-center md:grid-cols-4 gap-y-12 gap-x-16`}
       >
         {arrayToDisplay.map((cntr, index) => (
           <Card key={index} country={cntr} clickCountry={clickCountry} />
