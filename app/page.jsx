@@ -111,9 +111,9 @@ export default function Home() {
     >
       <Header />
 
-      <div className="flex flex-col md:flex-row justify-between py-5 w-full md:w-[95%]">
+      <div className="flex flex-col md:flex-row md:justify-between py-5 w-full md:w-[96%]">
         {/* Search */}
-        <div className="flex-col md:flex-row items-center justify-between rounded-md w-full  px-6">
+        <div className="flex flex-col md:flex-row items-center justify-between rounded-md w-full px-6">
           <div
             className={`${theme} items-center text-text flex p-4 w-[325px] md:w-96 bg-elmts shadow-lg`}
           >
@@ -140,9 +140,10 @@ export default function Home() {
               />
             </form>
           </div>
+
           <form>
             <Select
-              className="w-2/3 md:w-60 mt-6 md:mt-0 md:ml-10 bg-elmts shadow-lg"
+              className="w-[170px] -ml-36 md:w-60 mt-6 md:mt-0 md:ml-10 bg-elmts shadow-lg rounded-md"
               onChange={ChangeSelect}
               value={selectInput}
               defaultInputValue=""
