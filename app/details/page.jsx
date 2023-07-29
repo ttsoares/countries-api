@@ -118,7 +118,7 @@ const Page = () => {
               <h2 className="flex">
                 Languages:{" "}
                 <span className="ml-1 flex space-x-1">
-                  {oneCountry.languages.map((elm, index) => (
+                  {oneCountry.languages?.map((elm, index) => (
                     <p key={index}>
                       {elm.name}
                       {`${index < oneCountry.languages.length - 1 ? "," : ""}`}
@@ -146,7 +146,7 @@ const Page = () => {
                   <div
                     className={`${theme} grid grid-cols-3 md:grid-cols-4 bg-bckg gap-1 text-xs text-text w-full content-center hover:cursor-pointer`}
                   >
-                    {bordersArray.map((elm, index) => (
+                    {bordersArray?.map((elm, index) => (
                       <div
                         className="p-1 bg-elmts text-center shadow-[0px_10px_40px_4px_rgba(0,0,0,0.56)]"
                         key={index}
