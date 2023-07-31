@@ -2,7 +2,7 @@
 
 import { useTheme } from "@wits/next-themes";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { atom, useAtom } from "jotai";
 export const aCountry = atom("");
@@ -11,7 +11,29 @@ import Select from "react-select";
 
 import Countries from "../data.json";
 
-const allCountries = Countries.map((elm, index) => ({ ...elm, id: index }));
+let allCountries = Countries.map((elm, index) => ({ ...elm, id: index }));
+
+const regionsMap = new Map();
+regionsMap.set(
+  "africa",
+  allCountries.filter((elm) => elm.region === "Africa")
+);
+regionsMap.set(
+  "americas",
+  allCountries.filter((elm) => elm.region === "Americas")
+);
+regionsMap.set(
+  "asia",
+  allCountries.filter((elm) => elm.region === "Asia")
+);
+regionsMap.set(
+  "oceania",
+  allCountries.filter((elm) => elm.region === "Oceania")
+);
+regionsMap.set(
+  "europe",
+  allCountries.filter((elm) => elm.region === "Europe")
+);
 
 import Card from "../components/Card";
 import Header from "../components/Header";
@@ -22,15 +44,22 @@ export default function Home() {
 
   const [selectInput, setSelectInput] = useState("");
   const [oneCountry, setOneCountry] = useAtom(aCountry);
+  const [arrayToDisplay, setArrayToDisplay] = useState([]);
+  const [render, setRender] = useState(false);
 
   const router = useRouter();
 
   const { register, handleSubmit } = useForm();
 
   // For the Input Selec bellow
-  const countriesNames = allCountries.map((elm) => {
-    return { value: elm.name, label: elm.name };
-  });
+  const regions = [
+    { value: "unselect", label: "UnSelect" },
+    { value: "africa", label: "Africa" },
+    { value: "americas", label: "Americas" },
+    { value: "oceania", label: "Oceania" },
+    { value: "europe", label: "Europe" },
+    { value: "asia", label: "Asia" },
+  ];
 
   function getRandomInt(min, max) {
     min = Math.ceil(min);
@@ -38,26 +67,32 @@ export default function Home() {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  //Array of objects do the Cards
-  let arrayToDisplay = [];
-  let sorted = [];
-  let randomIndex;
-  for (let i = 0; i < 8; i++) {
-    randomIndex = getRandomInt(0, allCountries.length - 1);
-    while (sorted.includes(randomIndex)) {
+  function chooseEight() {
+    setArrayToDisplay([]);
+    let sorted = [];
+    let randomIndex;
+    for (let i = 0; i < 8; i++) {
       randomIndex = getRandomInt(0, allCountries.length - 1);
+      while (sorted.includes(randomIndex)) {
+        randomIndex = getRandomInt(0, allCountries.length - 1);
+      }
+      sorted.push(randomIndex);
+      const newObj = {
+        flag: allCountries[randomIndex].flags.png,
+        name: allCountries[randomIndex].name,
+        population: allCountries[randomIndex].population,
+        region: allCountries[randomIndex].region,
+        capital: allCountries[randomIndex].capital,
+        id: allCountries[randomIndex].id,
+      };
+      setArrayToDisplay((prev) => [...prev, newObj]);
     }
-    sorted.push(randomIndex);
-    const newObj = {
-      flag: allCountries[randomIndex].flags.png,
-      name: allCountries[randomIndex].name,
-      population: allCountries[randomIndex].population,
-      region: allCountries[randomIndex].region,
-      capital: allCountries[randomIndex].capital,
-      id: allCountries[randomIndex].id,
-    };
-    arrayToDisplay.push(newObj);
   }
+
+  useEffect(() => {
+    chooseEight();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // Process the country name from the input
   const filterSubmit = (data) => {
@@ -73,11 +108,13 @@ export default function Home() {
   };
 
   function ChangeSelect(selected) {
-    const choosedCountry = allCountries.find(
-      (country) => country.name === selected.value
-    );
-    setOneCountry(choosedCountry);
-    router.push("/details");
+    setRender(!render);
+    if (selected.value === "unselect") {
+      chooseEight();
+    } else {
+      setArrayToDisplay(regionsMap.get(selected.value));
+    }
+    console.log(arrayToDisplay);
   }
 
   function clickCountry(id) {
@@ -147,7 +184,7 @@ export default function Home() {
               onChange={ChangeSelect}
               value={selectInput}
               defaultInputValue=""
-              options={countriesNames}
+              options={regions}
               styles={customStyles}
               autoFocus={true}
             />

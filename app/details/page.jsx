@@ -76,10 +76,16 @@ const Page = () => {
       <div className="flex flex-col md:flex-row w-full p-10">
         {/* Flag */}
         <div className="relative w-full md:w-[35%]  h-60 md:h-72 mr-20 shadow-2xl">
-          <Image src={oneCountry.flag} alt="flag" fill object-fit="cover" />
+          <Image
+            src={oneCountry.flag}
+            alt="flag"
+            fill
+            object-fit="cover"
+            className="p-6"
+          />
         </div>
         {/* Details */}
-        <div className="flex flex-col w-full md:w-1/2">
+        <div className="flex flex-col w-full md:w-1/2 md:text-base">
           {/* country data */}
           <div className=" flex flex-col md:flex">
             <div className="flex flex-col">
@@ -152,7 +158,7 @@ const Page = () => {
                         key={index}
                         onClick={() => neighboard(elm)}
                       >
-                        {elm}
+                        {elm.split(" ")[0]}
                       </div>
                     ))}
                   </div>
