@@ -114,7 +114,6 @@ export default function Home() {
     } else {
       setArrayToDisplay(regionsMap.get(selected.value));
     }
-    console.log(arrayToDisplay);
   }
 
   function clickCountry(id) {
